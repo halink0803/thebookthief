@@ -1,3 +1,9 @@
+# @Author: Hoang Ha
+# @Date:   2017-03-17T14:46:34+07:00
+# @Last modified by:   Hoang Ha
+# @Last modified time: 2017-03-17T15:30:30+07:00
+
+
 """thebookthief URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,9 +19,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from main import views as main_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', main_views.home, name="thebookthief_home")
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
